@@ -19,9 +19,9 @@
     --fs-200: 0.875rem;
 
     /* font-families */
-    --ff-serif: "Bellefair", serif;
-    --ff-sans-cond: "Barlow Condensed", sans-serif;
-    --ff-sans-normal: "Barlow", sans-serif;
+    --ff-serif: 'Bellefair', serif;
+    --ff-sans-cond: 'Barlow Condensed', sans-serif;
+    --ff-sans-normal: 'Barlow', sans-serif;
 }
 
 @media (min-width: 35em) {
@@ -169,6 +169,14 @@ select {
     border: 0;
 }
 
+.jc-center {
+    justify-content: center;
+}
+
+.fd-col {
+    flex-direction: column;
+}
+
 .skip-to-content {
     position: absolute;
     z-index: 9999;
@@ -294,7 +302,7 @@ select {
 }
 
 .large-button::after {
-    content: "";
+    content: '';
     position: absolute;
     z-index: -1;
     width: 100%;
@@ -359,7 +367,7 @@ select {
         transition: transform 500ms ease-in-out;
     }
 
-    .primary-navigation[data-visible="true"] {
+    .primary-navigation[data-visible='true'] {
         transform: translateX(0);
     }
 
@@ -382,7 +390,7 @@ select {
         border: 0;
     }
 
-    .mobile-nav-toggle[aria-expanded="true"] {
+    .mobile-nav-toggle[aria-expanded='true'] {
         background-image: url(./assets/shared/icon-close.svg);
     }
 
@@ -406,7 +414,7 @@ select {
 
 @media (min-width: 45em) {
     .primary-header::after {
-        content: "";
+        content: '';
         display: block;
         position: relative;
         height: 1px;
@@ -439,7 +447,7 @@ select {
 }
 
 .underline-indicators > .active,
-.underline-indicators > [aria-selected="true"] {
+.underline-indicators > [aria-selected='true'] {
     color: hsl(var(--clr-white) / 1);
     border-color: hsl(var(--clr-white) / 1);
 }
@@ -461,8 +469,31 @@ select {
     background-color: hsl(var(--clr-white) / 0.5);
 }
 
-.dot-indicators > [aria-selected="true"] {
+.dot-indicators > [aria-selected='true'] {
     background-color: hsl(var(--clr-white) / 1);
+}
+
+.number-indicators > div {
+    margin-inline: 0.3rem;
+}
+
+.number-indicators button {
+    cursor: pointer;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    width: 3rem;
+    padding: 1em;
+    border: 0.1rem solid hsl(var(--clr-white) / 0.5);
+}
+
+.number-indicators button[aria-selected='true'] {
+    background-color: hsl(var(--clr-white) / 1);
+    color: hsl(var(--clr-dark));
+}
+
+.number-indicators button:hover,
+.number-indicators button:focus {
+    border: 0.1rem solid hsl(var(--clr-white) / 1);
 }
 
 /* ----------------------------- */
@@ -526,6 +557,25 @@ body {
     }
 }
 
+/* technology */
+.technology {
+    background-position: center center;
+    background-image: url(./assets/technology/background-technology-mobile.jpg);
+}
+
+@media (min-width: 35rem) {
+    .technology {
+        background-position: center center;
+        background-image: url(./assets/technology/background-technology-tablet.jpg);
+    }
+}
+
+@media (min-width: 45rem) {
+    .technology {
+        background-image: url(./assets/technology/background-technology-desktop.jpg);
+    }
+}
+
 /* ----------------------------- */
 /* Layout                        */
 /* ----------------------------- */
@@ -551,15 +601,16 @@ body {
 .grid-container--destination {
     --flow-space: 2rem;
     grid-template-areas:
-        "title"
-        "image"
-        "tabs"
-        "content";
+        'title'
+        'image'
+        'tabs'
+        'content';
 }
 
 .grid-container--destination > picture {
     grid-area: image;
     max-width: 60%;
+    align-self: start;
 }
 
 .grid-container--destination > .tab-list {
@@ -586,10 +637,10 @@ body {
 .grid-container--crew {
     --flow-space: 2rem;
     grid-template-areas:
-        "title"
-        "image"
-        "tabs"
-        "content";
+        'title'
+        'image'
+        'tabs'
+        'content';
 }
 
 .grid-container--crew > picture {
@@ -624,10 +675,10 @@ body {
     .grid-container--crew {
         padding-bottom: 0;
         grid-template-areas:
-            "title"
-            "content"
-            "tabs"
-            "image";
+            'title'
+            'content'
+            'tabs'
+            'image';
     }
 }
 
@@ -658,13 +709,12 @@ body {
         justify-items: start;
         align-content: start;
         grid-template-areas:
-            ". title title ."
-            ". image tabs ."
-            ". image content .";
+            '. title title .'
+            '. image tabs .'
+            '. image content .';
     }
 
-    .grid-container--destination > picture,
-    .grid-container--crew > picture {
+    .grid-container--destination > picture {
         max-width: 90%;
     }
 
@@ -674,17 +724,96 @@ body {
     }
 
     .grid-container--crew {
+        grid-template-columns:
+            minmax(1rem, 1fr) minmax(0, 37rem) minmax(0, 23rem)
+            minmax(1rem, 1fr);
+        justify-items: start;
         grid-template-areas:
-            ". title title ."
-            ". content image ."
-            ". tabs image .";
+            '. title title .'
+            '. content image .'
+            '. tabs image .';
     }
 
-    .grid-container--crew > .dot-indicators {
+    /* .grid-container--crew > .dot-indicators {
         justify-self: start;
+    } */
+
+    .grid-container--crew > picture {
+        grid-column: span 2;
+        align-self: end;
+        max-width: 90%;
+    }
+}
+
+/* technology layout */
+
+.grid-container--technology {
+    padding-inline: 0rem;
+    --flow-space: 2rem;
+    grid-template-areas:
+        'title'
+        'image'
+        'tabs'
+        'content';
+}
+
+.grid-container--technology > picture {
+    grid-area: image;
+    max-width: 100%;
+    border-bottom: 1px solid hsl(var(--clr-white) / 0.1);
+}
+
+.grid-container--technology > .number-indicators {
+    grid-area: tabs;
+}
+
+.grid-container--technology > .technology-details {
+    grid-area: content;
+}
+
+.grid-container--technology article {
+    padding-inline: 2rem;
+    text-align: center;
+}
+
+@media (min-width: 35em) {
+    .grid-container--technology > h1 {
+        margin-left: 2rem;
     }
 
-    /* .grid-container--crew > picture {
-        align-self: end;
-    } */
+    .number-indicators button {
+        width: 5rem;
+    }
+
+    .grid-container--technology article {
+        padding-inline: 6rem;
+    }
+}
+
+@media (min-width: 45em) {
+    .grid-container--technology > h1 {
+        margin-left: 2rem;
+    }
+
+    .number-indicators {
+        flex-direction: column;
+    }
+
+    .number-indicators button {
+        width: 5rem;
+    }
+
+    .grid-container--technology article {
+        padding-inline: 8rem;
+    }
+
+    .grid-container--technology {
+        grid-template-columns:
+            minmax(1rem, 1fr) minmax(0, 37rem) minmax(0, 23rem)
+            minmax(1rem, 1fr);
+        justify-items: start;
+        grid-template-areas:
+            'title title image image'
+            'tabs content image image';
+    }
 }
